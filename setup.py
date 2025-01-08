@@ -1,14 +1,19 @@
 import os
 import subprocess
 
+# ANSI color codes
+GREEN = "\033[92m"
+RED = "\033[91m"
+RESET = "\033[0m"
+
 def run_command(command, description):
     """Runs a shell command and provides feedback."""
     print(f"Starting: {description}")
     try:
         subprocess.run(command, shell=True, check=True)
-        print(f"✔ {description} completed successfully.\n")
+        print(f"{GREEN}✔ {description} completed successfully.{RESET}\n")
     except subprocess.CalledProcessError:
-        print(f"✖ {description} failed. Please check your setup.\n")
+        print(f"{RED}✖ {description} failed. Please check your setup.{RESET}\n")
 
 def is_homebrew_installed():
     """Check if Homebrew is installed."""
@@ -29,9 +34,9 @@ def upgrade_pip():
     print("Upgrading pip to the latest version...")
     try:
         subprocess.run("pip install --upgrade pip", shell=True, check=True)
-        print("✔ pip upgraded successfully.\n")
+        print(f"{GREEN}✔ pip upgraded successfully.{RESET}\n")
     except subprocess.CalledProcessError:
-        print("✖ Failed to upgrade pip. Please check your setup.\n")
+        print(f"{RED}✖ Failed to upgrade pip. Please check your setup.{RESET}\n")
 
 def is_python_package_installed(package_name):
     """Check if a Python package is installed."""
@@ -46,19 +51,19 @@ def main():
             "Installing Homebrew"
         )
     else:
-        print("✔ Homebrew is already installed.\n")
+        print(f"{GREEN}✔ Homebrew is already installed.{RESET}\n")
 
     # Install Git
     if not is_git_installed():
         run_command("brew install git", "Installing Git")
     else:
-        print("✔ Git is already installed.\n")
+        print(f"{GREEN}✔ Git is already installed.{RESET}\n")
 
     # Install Python
     if not is_python3_installed():
         run_command("brew install python", "Installing Python")
     else:
-        print("✔ Python 3 is already installed.\n")
+        print(f"{GREEN}✔ Python 3 is already installed.{RESET}\n")
 
     # Upgrade pip
     upgrade_pip()
@@ -67,7 +72,7 @@ def main():
     if not is_python_package_installed("cloudquery-plugin-sdk"):
         run_command("pip install cloudquery-plugin-sdk", "Installing CloudQuery Python SDK")
     else:
-        print("✔ CloudQuery Python SDK is already installed.\n")
+        print(f"{GREEN}✔ CloudQuery Python SDK is already installed.{RESET}\n")
 
 if __name__ == "__main__":
     main()
