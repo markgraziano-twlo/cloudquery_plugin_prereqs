@@ -37,3 +37,37 @@ def is_python_package_installed(package_name):
     """Check if a Python package is installed."""
     result = subprocess.run(f"pip show {package_name}", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     return result.returncode == 0
+
+def main():
+    # Install Homebrew
+    if not is_homebrew_installed():
+        run_command(
+            '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"',
+            "Installing Homebrew"
+        )
+    else:
+        print("✔ Homebrew is already installed.\n")
+
+    # Install Git
+    if not is_git_installed():
+        run_command("brew install git", "Installing Git")
+    else:
+        print("✔ Git is already installed.\n")
+
+    # Install Python
+    if not is_python3_installed():
+        run_command("brew install python", "Installing Python")
+    else:
+        print("✔ Python 3 is already installed.\n")
+
+    # Upgrade pip
+    upgrade_pip()
+
+    # Install Python packages
+    if not is_python_package_installed("cloudquery-plugin-sdk"):
+        run_command("pip install cloudquery-plugin-sdk", "Installing CloudQuery Python SDK")
+    else:
+        print("✔ CloudQuery Python SDK is already installed.\n")
+
+if __name__ == "__main__":
+    main()
