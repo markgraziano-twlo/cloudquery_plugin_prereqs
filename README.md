@@ -22,5 +22,5 @@ Additionally:
 Run the following command in your terminal to install all prerequisites:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/markgraziano-twlo/cloudquery_plugin_prereqs/f86750ce2cb5960a799d14ba108b615339d06933/setup.py | python3
+curl -fsSL https://raw.githubusercontent.com/markgraziano-twlo/cloudquery_plugin_prereqs/refs/heads/main/setup.py | python3
 
