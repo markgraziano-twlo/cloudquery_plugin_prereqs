@@ -57,7 +57,7 @@ def setup_ssh_key():
     # Authorize SSH key for SAML SSO
     print(f"{YELLOW}Authorizing SSH key for SAML SSO...{RESET}")
     saml_auth_result = subprocess.run(
-        ["gh", "auth", "refresh", "-h", "github.com", "-s", "read:org,write:org"],
+        ["gh", "ssh-key", "authorize", "--title", "Work Laptop - Twilio Internal"],
         capture_output=True,
         text=True,
     )
