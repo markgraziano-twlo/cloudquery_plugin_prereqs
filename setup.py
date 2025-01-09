@@ -17,7 +17,7 @@ def run_command(command, description):
         print(f"{RED}\u2716 {description} failed. Please check your setup.{RESET}\n")
 
 def setup_ssh_key():
-    """Sets up an SSH key for GitHub and prompts user for manual SAML SSO authorization."""
+    """Sets up an SSH key for GitHub and provides a reminder for manual SAML SSO authorization."""
     print(f"{YELLOW}Setting up an SSH key for GitHub access...{RESET}")
     
     ssh_dir = os.path.expanduser("~/.ssh")
@@ -54,14 +54,6 @@ def setup_ssh_key():
         print(f"{RED}\u2716 Failed to add SSH key to GitHub: {add_key_result.stderr.strip()}{RESET}")
         return
 
-    # Prompt user to manually authorize the SSH key for SAML SSO
-    print(f"{YELLOW}Your SSH key needs to be manually authorized for SAML SSO.{RESET}")
-    print(f"{YELLOW}Press Enter to open the GitHub SSH settings page in your browser...{RESET}")
-    input(f"{YELLOW}(https://github.com/settings/keys){RESET}")
-    subprocess.run(["open", "https://github.com/settings/keys"], check=True)
-    print(f"{YELLOW}Once authorized, press Enter to continue...{RESET}")
-    input()
-
     # Test the SSH connection
     print(f"{YELLOW}Testing the SSH connection to GitHub...{RESET}")
     result = subprocess.run("ssh -T git@github.com", shell=True, text=True, capture_output=True)
@@ -71,6 +63,13 @@ def setup_ssh_key():
         print(f"{RED}\u2716 SSH setup failed: {result.stderr.strip()}{RESET}")
         if "does not provide shell access" in result.stderr:
             print(f"{GREEN}This is normal. GitHub does not provide shell access. Your SSH key is still working for Git operations.{RESET}")
+
+        # Reminder for manual SAML SSO authorization
+    print(f"{YELLOW}🚨 While the SSH connection test was successful, your key must be authorized for SAML SSO to access certain repositories. 🚨{RESET}")
+    print(f"{YELLOW}🌐 We will open the GitHub SSH settings page in 5 seconds so you can manually authorize the key. 🌐{RESET}")
+    subprocess.run("sleep 5", shell=True)
+    subprocess.run(["open", "https://github.com/settings/keys"], check=True)
+
 
 def main():
     # Upgrade Homebrew
