@@ -29,6 +29,11 @@ def is_python3_installed():
     result = subprocess.run("python3 --version", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     return result.returncode == 0
 
+def is_cloudquery_installed():
+    """Check if CloudQuery CLI is installed."""
+    result = subprocess.run("cloudquery --version", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    return result.returncode == 0
+
 def upgrade_pip():
     """Upgrade pip to the latest version."""
     print("Upgrading pip to the latest version...")
@@ -67,6 +72,12 @@ def main():
 
     # Upgrade pip
     upgrade_pip()
+
+    # Install CloudQuery CLI
+    if not is_cloudquery_installed():
+        run_command("brew install cloudquery/tap/cloudquery", "Installing CloudQuery CLI")
+    else:
+        print(f"{GREEN}✔ CloudQuery CLI is already installed.{RESET}\n")
 
     # Install Python packages
     if not is_python_package_installed("cloudquery-plugin-sdk"):
