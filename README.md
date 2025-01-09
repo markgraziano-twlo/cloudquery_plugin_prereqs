@@ -21,6 +21,7 @@ Before proceeding with the script, please ensure you have completd the following
 3. Sets up an **SSH key** for twilio-internal GitHub (if required).
    - The script will automatically check if the SSH key id_rsa_twilio_internal exists on your Twilio work laptop.
    - If the key is missing, it generates a new one and uploads it to GitHub using the GitHub CLI.
+   - 🚨 You must manually authorize your newly added ssh key for SAML SSO. This script will automatically open the browser for you to perform that step. 🌐
 
 ---
 
