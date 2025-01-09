@@ -19,26 +19,37 @@ This repository contains a script to automate the installation of prerequisites 
 ## **Usage**
 
 ### **Scenario 1: For Users WITHOUT Homebrew or Python Already Installed**
-Install Homebrew and Python:
+#### Install Homebrew and Python:
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && brew install python && curl -fsSL https://raw.githubusercontent.com/markgraziano-twlo/cloudquery_plugin_prereqs/refs/heads/main/setup.py | python3
 ```
-Authenticate GitHub CLI:
+#### Authenticate GitHub CLI:
 ```bash
 gh auth login -s admin:public_key
 ```
+Follow these steps during the gh auth login process:
 
-Install all remaining prerequisites and add GitHub SSH key:
+- Where do you use GitHub?: Choose GitHub.com.
+- What is your preferred protocol?: Choose HTTPS.
+- Authenticate Git with your GitHub credentials?: Answer Y.
+- How would you like to authenticate GitHub CLI?: Choose Login with a web browser.
+  - Copy the one-time code provided in the terminal
+  - Hit Enter in the termainal to launch your browser.
+  - Select the account you want to authenticate (your twilio-internal account) 
+  - Paste the one-time code into the browser prompt and click Authorize GitHub.
+  - Return to the terminal once authentication is complete.
+
+#### Install all remaining prerequisites and add GitHub SSH key:
 ```bash
 curl -fsSL https://raw.githubusercontent.com/markgraziano-twlo/cloudquery_plugin_prereqs/refs/heads/main/setup.py | python3
 ```
 
 ### **Scenario 2: For Users WITH Homebrew and Python Already Installed**
-Authenticate GitHub CLI:
+#### Authenticate GitHub CLI:
 ```bash
 gh auth login -s admin:public_key
 ```
 
-Install all remaining prerequisites and add GitHub SSH key:
+#### Install all remaining prerequisites and add GitHub SSH key:
 ```bash
 curl -fsSL https://raw.githubusercontent.com/markgraziano-twlo/cloudquery_plugin_prereqs/refs/heads/main/setup.py | python3
