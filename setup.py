@@ -17,7 +17,7 @@ def run_command(command, description):
         print(f"{RED}\u2716 {description} failed. Please check your setup.{RESET}\n")
 
 def setup_ssh_key():
-    """Sets up an SSH key for GitHub and authorizes it for SAML SSO."""
+    """Sets up an SSH key for GitHub and prompts user for manual SAML SSO authorization."""
     print(f"{YELLOW}Setting up an SSH key for GitHub access...{RESET}")
     
     ssh_dir = os.path.expanduser("~/.ssh")
@@ -54,18 +54,13 @@ def setup_ssh_key():
         print(f"{RED}\u2716 Failed to add SSH key to GitHub: {add_key_result.stderr.strip()}{RESET}")
         return
 
-    # Authorize SSH key for SAML SSO
-    print(f"{YELLOW}Authorizing SSH key for SAML SSO...{RESET}")
-    saml_auth_result = subprocess.run(
-        ["gh", "ssh-key", "authorize", "--title", "Work Laptop - Twilio Internal"],
-        capture_output=True,
-        text=True,
-    )
-    if saml_auth_result.returncode == 0:
-        print(f"{GREEN}\u2714 SSH key authorized for SAML SSO successfully.{RESET}")
-    else:
-        print(f"{RED}\u2716 Failed to authorize SSH key for SAML SSO: {saml_auth_result.stderr.strip()}{RESET}")
-        print(f"{YELLOW}Please manually authorize the key via the GitHub web interface if needed.{RESET}")
+    # Prompt user to manually authorize the SSH key for SAML SSO
+    print(f"{YELLOW}Your SSH key needs to be manually authorized for SAML SSO.{RESET}")
+    print(f"{YELLOW}Press Enter to open the GitHub SSH settings page in your browser...{RESET}")
+    input(f"{YELLOW}(https://github.com/settings/keys){RESET}")
+    subprocess.run(["open", "https://github.com/settings/keys"], check=True)
+    print(f"{YELLOW}Once authorized, press Enter to continue...{RESET}")
+    input()
 
     # Test the SSH connection
     print(f"{YELLOW}Testing the SSH connection to GitHub...{RESET}")
