@@ -11,7 +11,7 @@ This repository contains a script to automate the installation of prerequisites 
    - **CloudQuery CLI**
    - **CloudQuery Python SDK**
 3. Sets up an **SSH key** for twilio-internal GitHub (if required).
-   - The script will automatically check if the SSH key id_rsa_twilio_internal exists.
+   - The script will automatically check if the SSH key id_rsa_twilio_internal exists on your Twilio work laptop.
    - If the key is missing, it generates a new one and uploads it to GitHub using the GitHub CLI.
 
 ---
