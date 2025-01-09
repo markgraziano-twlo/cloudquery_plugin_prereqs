@@ -12,9 +12,9 @@ def run_command(command, description):
     print(f"Starting: {description}")
     try:
         subprocess.run(command, shell=True, check=True)
-        print(f"{GREEN}✔ {description} completed successfully.{RESET}\n")
+        print(f"{GREEN}\u2714 {description} completed successfully.{RESET}\n")
     except subprocess.CalledProcessError:
-        print(f"{RED}✖ {description} failed. Please check your setup.{RESET}\n")
+        print(f"{RED}\u2716 {description} failed. Please check your setup.{RESET}\n")
 
 def setup_ssh_key():
     """Sets up an SSH key for GitHub and authorizes it for SAML SSO."""
@@ -27,7 +27,7 @@ def setup_ssh_key():
 
     # Check if the key already exists locally
     if os.path.exists(key_path):
-        print(f"{GREEN}✔ SSH key already exists at {key_path}. Skipping key generation.{RESET}")
+        print(f"{GREEN}\u2714 SSH key already exists at {key_path}. Skipping key generation.{RESET}")
     else:
         # Generate SSH key
         print(f"{YELLOW}Generating a new SSH key...{RESET}")
@@ -47,11 +47,11 @@ def setup_ssh_key():
         text=True,
     )
     if add_key_result.returncode == 0:
-        print(f"{GREEN}✔ SSH key successfully added to GitHub.{RESET}")
+        print(f"{GREEN}\u2714 SSH key successfully added to GitHub.{RESET}")
     elif "already exists" in add_key_result.stderr:
-        print(f"{YELLOW}✔ SSH key already exists in GitHub. Skipping addition.{RESET}")
+        print(f"{YELLOW}\u2714 SSH key already exists in GitHub. Skipping addition.{RESET}")
     else:
-        print(f"{RED}✖ Failed to add SSH key to GitHub: {add_key_result.stderr.strip()}{RESET}")
+        print(f"{RED}\u2716 Failed to add SSH key to GitHub: {add_key_result.stderr.strip()}{RESET}")
         return
 
     # Authorize SSH key for SAML SSO
@@ -62,21 +62,20 @@ def setup_ssh_key():
         text=True,
     )
     if saml_auth_result.returncode == 0:
-        print(f"{GREEN}✔ SSH key authorized for SAML SSO successfully.{RESET}")
+        print(f"{GREEN}\u2714 SSH key authorized for SAML SSO successfully.{RESET}")
     else:
-        print(f"{RED}✖ Failed to authorize SSH key for SAML SSO: {saml_auth_result.stderr.strip()}{RESET}")
+        print(f"{RED}\u2716 Failed to authorize SSH key for SAML SSO: {saml_auth_result.stderr.strip()}{RESET}")
         print(f"{YELLOW}Please manually authorize the key via the GitHub web interface if needed.{RESET}")
-
 
     # Test the SSH connection
     print(f"{YELLOW}Testing the SSH connection to GitHub...{RESET}")
     result = subprocess.run("ssh -T git@github.com", shell=True, text=True, capture_output=True)
     if result.returncode == 0:
-        print(f"{GREEN}✔ SSH connection to GitHub successful!{RESET}")
+        print(f"{GREEN}\u2714 SSH connection to GitHub successful!{RESET}")
     else:
-        print(f"{RED}✖ SSH setup failed: {result.stderr.strip()}{RESET}")
+        print(f"{RED}\u2716 SSH setup failed: {result.stderr.strip()}{RESET}")
         if "does not provide shell access" in result.stderr:
-             print(f"{GREEN}This is normal. GitHub does not provide shell access. Your SSH key is still working for Git operations.{RESET}")
+            print(f"{GREEN}This is normal. GitHub does not provide shell access. Your SSH key is still working for Git operations.{RESET}")
 
 def main():
     # Upgrade Homebrew
