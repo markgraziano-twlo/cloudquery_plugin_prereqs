@@ -57,18 +57,16 @@ def setup_ssh_key():
     # Authorize SSH key for SAML SSO
     print(f"{YELLOW}Authorizing SSH key for SAML SSO...{RESET}")
     saml_auth_result = subprocess.run(
-        ["gh", "auth", "status", "--show-token"],
+        ["gh", "auth", "refresh", "-h", "github.com", "-s", "read:org,write:org"],
         capture_output=True,
         text=True,
     )
-    if "SAML SSO" in saml_auth_result.stdout:
-        subprocess.run(
-            ["gh", "auth", "refresh", "-h", "github.com", "-s", "read:org,write:org"],
-            check=True,
-        )
+    if saml_auth_result.returncode == 0:
         print(f"{GREEN}✔ SSH key authorized for SAML SSO successfully.{RESET}")
     else:
-        print(f"{YELLOW}No SAML SSO enforcement detected, skipping authorization.{RESET}")
+        print(f"{RED}✖ Failed to authorize SSH key for SAML SSO: {saml_auth_result.stderr.strip()}{RESET}")
+        print(f"{YELLOW}Please manually authorize the key via the GitHub web interface if needed.{RESET}")
+
 
     # Test the SSH connection
     print(f"{YELLOW}Testing the SSH connection to GitHub...{RESET}")
