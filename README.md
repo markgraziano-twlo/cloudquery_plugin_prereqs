@@ -3,6 +3,14 @@
 This repository contains a script to automate the installation of prerequisites for setting up your custom CloudQuery plugin development environment. It ensures all necessary tools and dependencies are installed, configured, and ready to use.
 
 ---
+## Manual Administrative Tasks
+Before proceeding with the script, please ensure you have completd the following manual tasks: 
+1. Request Access to CloudQuery in [#help-operational-insights](https://twilio.slack.com/app_redirect?channel=help-operational-insights)
+2. Request Just-In-Time access to the `cloudquery-twilio` AWS Account by following the steps [here](https://internal-product-docs.twilio.com/docs/amazon-web-services/aws-access-management/aws-jit-access/?q=jit+access#request-aws-jit-access) 
+3. Request Access to GitHub Copilot by submitting a ticket [here](https://twilio.service-now.com/sp?id=sc_cat_item&sys_id=035b188a87b2d55061197b9acebb3566).
+    - Organization: Twilio
+    - Application: GitHub Copilot License
+4. Set up your GitHub Copilot IDE following [these instructions](https://docs.github.com/en/copilot/using-github-copilot/getting-code-suggestions-in-your-ide-with-github-copilot). *For more details see Twilio’s [Internal Product Docs](https://internal-product-docs.twilio.com/docs/operational-insights/guides/how-to-create-a-custom-cloudquery-plugin)*
 
 ## **What This Script Does**
 1. Updates **Homebrew** and **Python 3** (if already installed).
