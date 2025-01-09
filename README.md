@@ -19,13 +19,26 @@ This repository contains a script to automate the installation of prerequisites 
 ## **Usage**
 
 ### **Scenario 1: For Users WITHOUT Homebrew or Python Already Installed**
-Run the following single-line command to install Homebrew, Python, and all other prerequisites:
-
+Install Homebrew and Python:
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && brew install python && curl -fsSL https://raw.githubusercontent.com/markgraziano-twlo/cloudquery_plugin_prereqs/refs/heads/main/setup.py | python3
 ```
-## **Scenario 2: For Users WITH Homebrew and Python Already Installed**
-Run this command to install all remaining prerequisites:
+Authenticate GitHub CLI:
+```bash
+gh auth login -s admin:public_key
+```
 
+Install all remaining prerequisites and add GitHub SSH key:
+```bash
+curl -fsSL https://raw.githubusercontent.com/markgraziano-twlo/cloudquery_plugin_prereqs/refs/heads/main/setup.py | python3
+```
+
+### **Scenario 2: For Users WITH Homebrew and Python Already Installed**
+Authenticate GitHub CLI:
+```bash
+gh auth login -s admin:public_key
+```
+
+Install all remaining prerequisites and add GitHub SSH key:
 ```bash
 curl -fsSL https://raw.githubusercontent.com/markgraziano-twlo/cloudquery_plugin_prereqs/refs/heads/main/setup.py | python3
