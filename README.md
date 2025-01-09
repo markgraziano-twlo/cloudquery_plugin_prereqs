@@ -10,6 +10,7 @@ This repository contains a script to automate the installation of prerequisites 
 3. Installs the latest stable version of **Python 3** via Homebrew.
 4. Ensures **pip** (Python's package manager) is up-to-date.
 5. Installs the **CloudQuery Python SDK** (`cloudquery-plugin-sdk`).
+6. Installs the **CloudQuery CLI**
 
 Additionally:
 - Checks for existing installations of these tools to avoid unnecessary installations.
