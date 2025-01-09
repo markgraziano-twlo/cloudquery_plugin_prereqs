@@ -60,13 +60,13 @@ def setup_ssh_key():
     if result.returncode == 0:
         print(f"{GREEN}\u2714 SSH connection to GitHub successful!{RESET}")
     else:
-        print(f"{RED}\u2716 SSH setup failed: {result.stderr.strip()}{RESET}")
+        print(f"{YELLOW}\u2716 SSH setup failed: {result.stderr.strip()}{RESET}")
         if "does not provide shell access" in result.stderr:
             print(f"{GREEN}This is normal. GitHub does not provide shell access. Your SSH key is still working for Git operations.{RESET}")
 
         # Reminder for manual SAML SSO authorization
-    print(f"{YELLOW}🚨 While the SSH connection test was successful, your key must be authorized for SAML SSO to access certain repositories. 🚨{RESET}")
-    print(f"{YELLOW}🌐 We will open the GitHub SSH settings page in 5 seconds so you can manually authorize the key. 🌐{RESET}")
+    print(f"{RED}🚨 While the SSH connection test was successful, your key must be authorized for SAML SSO to access certain repositories. 🚨{RESET}")
+    print(f"{RED}🌐 We will open the GitHub SSH settings page in 5 seconds so you can manually authorize the key. 🌐{RESET}")
     subprocess.run("sleep 5", shell=True)
     subprocess.run(["open", "https://github.com/settings/keys"], check=True)
 
