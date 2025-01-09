@@ -43,13 +43,16 @@ def setup_ssh_key():
     print(f"{YELLOW}Adding the SSH key to GitHub...{RESET}")
     subprocess.run(["gh", "ssh-key", "add", public_key_path, "--title", "Work Laptop - Twilio Internal"], check=True)
 
-    # Test the SSH connection
+   # Test the SSH connection
     print(f"{YELLOW}Testing the SSH connection to GitHub...{RESET}")
-    result = subprocess.run("ssh -T git@github.com", shell=True)
+    result = subprocess.run("ssh -T git@github.com", shell=True, text=True, capture_output=True)
     if result.returncode == 0:
-        print(f"{GREEN}✔ SSH setup completed successfully!{RESET}")
+        print(f"{GREEN}✔ SSH connection to GitHub successful!{RESET}")
     else:
-        print(f"{RED}✖ SSH setup failed. Please troubleshoot the connection.{RESET}")
+        print(f"{RED}✖ SSH setup failed: {result.stderr.strip()}{RESET}")
+        if "does not provide shell access" in result.stderr:
+            print(f"{YELLOW}This is normal. GitHub does not provide shell access. Your SSH key is still working for Git operations.{RESET}")
+
 
 def main():
     # Upgrade Homebrew
