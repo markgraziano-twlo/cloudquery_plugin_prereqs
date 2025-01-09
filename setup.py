@@ -51,7 +51,7 @@ def setup_ssh_key():
     else:
         print(f"{RED}✖ SSH setup failed: {result.stderr.strip()}{RESET}")
         if "does not provide shell access" in result.stderr:
-            print(f"{YELLOW}This is normal. GitHub does not provide shell access. Your SSH key is still working for Git operations.{RESET}")
+            print(f"{GREEN}This message is normal. GitHub does not provide shell access. Your SSH key is still working for Git operations.{RESET}")
 
 
 def main():
